@@ -25,14 +25,12 @@ function BaseDAO(db, collectionName) {
  * @param fields - fields for the projection
  * @returns {*}
  */
-BaseDAO.prototype.findOne = function(criteria, fields) {
-    if(fields) {
+BaseDAO.prototype.findOne = function (criteria, fields) {
+    if (fields) {
         return this.collection.findOneAsync(criteria, fields);
     } else {
-        console.log(`Critère : ${JSON.stringify(criteria)}`);
         return this.collection.findOneAsync(criteria);
     }
-
 };
 
 /**
@@ -44,15 +42,14 @@ BaseDAO.prototype.findOne = function(criteria, fields) {
  * @param limit - nb max element
  * @returns {*}
  */
-BaseDAO.prototype.find = function(query, fields, options, sort, limit) {
+BaseDAO.prototype.find = function (query, fields, options, sort, limit) {
     let resolver = BPromise.defer();
     let cursor = this.collection.find(query, fields, options);
-
-    if(sort){
+    if (sort) {
         cursor.sort(sort);
     }
 
-    if(limit) {
+    if (limit) {
         cursor.limit(limit);
     }
 
@@ -62,8 +59,8 @@ BaseDAO.prototype.find = function(query, fields, options, sort, limit) {
         }
         return resolver.resolve(docs);
     });
-    return resolver.promise;
 
+    return resolver.promise;
 };
 
 /**
@@ -71,10 +68,10 @@ BaseDAO.prototype.find = function(query, fields, options, sort, limit) {
  * @param doc - doc to save
  * @returns {*}
  */
-BaseDAO.prototype.save = function(doc){
-    return this.collection.saveAsync(doc, {}).then(function(result) {
+BaseDAO.prototype.save = function (doc) {
+    return this.collection.saveAsync(doc, {}).then(function (result) {
         return result[0];
-    }).catch(function(err) {
+    }).catch(function (err) {
         throw err;
     });
 };
@@ -84,7 +81,7 @@ BaseDAO.prototype.save = function(doc){
  * @param query - each element that match the query is deleted
  * @returns {*}
  */
-BaseDAO.prototype.remove = function(query){
+BaseDAO.prototype.remove = function (query) {
     return this.collection.removeAsync(query);
 };
 
@@ -96,14 +93,18 @@ BaseDAO.prototype.remove = function(query){
  * @param options - options
  * @returns {*}
  */
-BaseDAO.prototype.update = function(context, query, fields, options){
-    try{
-        return this.collection.updateAsync(query, fields, options).then(function(result) {
-            return result[0];
-        }).catch(function(err) {
-            throw err;
-        });
-    } catch(exception){
+BaseDAO.prototype.update = function (context, query, fields, options) {
+    try {
+        return this.collection.updateAsync(query, fields, options).then(
+            function (result) {
+                return result[0];
+            }
+        ).catch(
+            function (err) {
+                throw err;
+            }
+        );
+    } catch (exception) {
         throw exception;
     }
 };
