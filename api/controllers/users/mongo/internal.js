@@ -27,15 +27,17 @@ function getAll() {
  * @returns {Promise.<TResult>}
  */
 function get(id) {
-    return mongo.getDao(UsersDao).then(function (usersDao) {
-        let query = {"_id": new ObjectID(id)};
-        return usersDao.findOne(query).then(function (users) {
-            if (_.isEmpty(users)) {
-                return {};
-            }
-            return users;
-        });
-    });
+    return mongo.getDao(UsersDao).then(
+        function (usersDao) {
+            let query = {"_id": new ObjectID(id)};
+            return usersDao.findOne(query).then(function (users) {
+                if (_.isEmpty(users)) {
+                    return {};
+                }
+                return users;
+            });
+        }
+    ).catch(handleError);
 }
 
 /**
@@ -44,11 +46,13 @@ function get(id) {
  * @returns {Promise.<TResult>}
  */
 function update(user) {
-    return mongo.getDao(UsersDao).then(function (usersDAO) {
-        let userWithObjectId = _.clone(user, true);
-        userWithObjectId._id = new ObjectID(user._id);
-        return usersDAO.save(userWithObjectId);
-    });
+    return mongo.getDao(UsersDao).then(
+        function (usersDAO) {
+            let userWithObjectId = _.clone(user, true);
+            userWithObjectId._id = new ObjectID(user._id);
+            return usersDAO.save(userWithObjectId);
+        }
+    ).catch(handleError);
 }
 
 /**
@@ -57,9 +61,11 @@ function update(user) {
  * @returns {Promise.<TResult>}
  */
 function add(user) {
-    return mongo.getDao(UsersDao).then(function (usersDAO) {
-        return usersDAO.save(user);
-    });
+    return mongo.getDao(UsersDao).then(
+        function (usersDAO) {
+            return usersDAO.save(user);
+        }
+    ).catch(handleError);
 }
 
 /**
@@ -68,9 +74,16 @@ function add(user) {
  * @returns {Promise.<TResult>}
  */
 function remove(id) {
-    return mongo.getDao(UsersDao).then(function (usersDAO) {
-        return usersDAO.remove({_id: new ObjectID(id)});
-    });
+    return mongo.getDao(UsersDao).then(
+        function (usersDAO) {
+            return usersDAO.remove({_id: new ObjectID(id)});
+        }
+    ).catch(handleError);
+}
+
+function handleError(exception) {
+    console.log(`Exception : ${exception}`);
+    return exception;
 }
 
 exports.get = get;
