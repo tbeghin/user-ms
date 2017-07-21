@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const router = express.Router();
 const userRoutes = require('./api/routes/user');
+const authRoutes = require('./api/routes/authenticate');
 const app = express();
 const http = require('http');
 
@@ -25,6 +26,7 @@ app.use('/', express.static('site'));
 app.use('/api', router);
 
 userRoutes(router);
+authRoutes(router);
 
 const port = 3061;
 app.listen(port, function () {

@@ -41,6 +41,26 @@ function get(id) {
 }
 
 /**
+ * Get an users by id
+ * @param username
+ * @param password
+ * @returns {Promise.<TResult>}
+ */
+function getUserByName(username, password) {
+    return mongo.getDao(UsersDao).then(
+        function (usersDao) {
+            let query = {username: username, password: password};
+            return usersDao.findOne(query).then(function (users) {
+                if (_.isEmpty(users)) {
+                    return {};
+                }
+                return users;
+            });
+        }
+    ).catch(handleError);
+}
+
+/**
  * Updating an existing user in the bdd
  * @param {object} user - the user to update
  * @returns {Promise.<TResult>}
@@ -87,6 +107,7 @@ function handleError(exception) {
 }
 
 exports.get = get;
+exports.getUserByName = getUserByName;
 exports.getAll = getAll;
 exports.remove = remove;
 exports.update = update;

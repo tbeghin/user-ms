@@ -13,6 +13,7 @@
     "cron": "^1.1.1",
     "express": "^4.13.0",
     "grunt": "^0.4.5",
+    "jsonwebtoken": "^7.4.1",
     "lodash": "^3.10.0",
     "mongodb": "^2.2.25",
     "node-cron": "^1.1.2",
