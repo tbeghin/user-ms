@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 const userRoutes = require('./api/routes/user');
 const authRoutes = require('./api/routes/authenticate');
+const treeviewRoutes = require('./api/routes/treeview');
 const app = express();
 const http = require('http');
 
@@ -27,6 +28,7 @@ app.use('/api', router);
 
 userRoutes(router);
 authRoutes(router);
+treeviewRoutes(router);
 
 const port = 3061;
 app.listen(port, function () {

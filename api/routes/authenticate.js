@@ -15,7 +15,7 @@ module.exports = function (router) {
                         'calligrammePass',
                         {expiresIn: 60 * 60});
                 }
-                res.json({token: token});
+                res.json({id: user._id, token: token});
             }
         );
     });
