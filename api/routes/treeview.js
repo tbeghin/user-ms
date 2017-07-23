@@ -1,31 +1,16 @@
 'use strict';
+const treeview = require('../controllers/treeview.ctrl');
 
 module.exports = function (router) {
     router.get('/treeview', function (req, res) {
-        const listItem = [
-            {
-                name: 'Dashboard',
-                url: '/dashboard',
-                icon: 'fa fa-dashboard',
-                isDisabled: false,
-            },
-            {
-                name: 'Paramètres',
-                url: '/parameters',
-                icon: 'fa fa-cogs'
-            },
-            {
-                name: 'Test',
-                icon: 'fa fa-cogs',
-                children: [
-                    {
-                        name: 'Paramètres',
-                        url: '/parameters',
-                        icon: 'fa fa-cogs'
-                    }
-                ]
-            }
-        ];
-        res.json(listItem);
+        treeview.getAll().then(function (datas) {
+            res.json(datas);
+        });
+    });
+
+    router.post('/treeview', function (req, res) {
+        treeview.add(req.body).then(function (datas) {
+            res.json(datas);
+        });
     });
 };
