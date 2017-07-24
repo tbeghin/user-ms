@@ -16,19 +16,7 @@ function getAll() {
             if (_.isEmpty(treeview)) {
                 return [];
             }
-            let childrenElt =  _.filter(treeview, item => item.parent);
-            let mainItem = _.filter(treeview, item => !item.parent);
-            _.forEach(childrenElt, elt => {
-                _.map(mainItem, main => {
-                    if(main._id.toHexString() === elt.parent.toHexString()){
-                        if (!main.children){
-                            main.children = []
-                        }
-                        main.children.push(elt);
-                    }
-                })
-            });
-            return mainItem;
+            return treeview;
         });
     });
 }
