@@ -6,6 +6,7 @@ const router = express.Router();
 const userRoutes = require('./api/routes/user');
 const authRoutes = require('./api/routes/authenticate');
 const treeviewRoutes = require('./api/routes/treeview');
+const iconListRoutes = require('./api/routes/icon-list');
 const app = express();
 const http = require('http');
 
@@ -29,6 +30,7 @@ app.use('/api', router);
 userRoutes(router);
 authRoutes(router);
 treeviewRoutes(router);
+iconListRoutes(router);
 
 const port = 3061;
 app.listen(port, function () {

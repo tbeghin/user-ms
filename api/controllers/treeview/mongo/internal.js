@@ -6,7 +6,7 @@ const TreeviewDao = require('./TreeviewDao').usersDAO;
 const ObjectID = require('mongodb').ObjectID;
 
 /**
- * Get All users
+ * Get All treeview
  * @returns {Promise.<TResult>}
  */
 function getAll() {
@@ -22,29 +22,29 @@ function getAll() {
 }
 
 /**
- * Updating an existing user in the bdd
- * @param {object} user - the user to update
+ * Updating an existing treeview in the bdd
+ * @param {object} treeview - the treeview to update
  * @returns {Promise.<TResult>}
  */
-function update(user) {
+function update(treeview) {
     return mongo.getDao(TreeviewDao).then(
-        function (usersDAO) {
-            let userWithObjectId = _.clone(user, true);
-            userWithObjectId._id = new ObjectID(user._id);
-            return usersDAO.save(userWithObjectId);
+        function (treeviewDAO) {
+            let treeviewWithObjectId = _.clone(treeview, true);
+            treeviewWithObjectId._id = new ObjectID(treeview._id);
+            return treeviewDAO.save(treeviewWithObjectId);
         }
     ).catch(handleError);
 }
 
 /**
- * Add a new user
- * @param user
+ * Add a new treeview
+ * @param treeview
  * @returns {Promise.<TResult>}
  */
-function add(user) {
+function add(treeview) {
     return mongo.getDao(TreeviewDao).then(
-        function (usersDAO) {
-            return usersDAO.save(user);
+        function (treeviewDAO) {
+            return treeviewDAO.save(treeview);
         }
     ).catch(handleError);
 }
