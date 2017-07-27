@@ -83,6 +83,7 @@ function update(user) {
 function add(user) {
     return mongo.getDao(UsersDao).then(
         function (usersDAO) {
+            user._id = new ObjectID(user._id)
             return usersDAO.save(user);
         }
     ).catch(handleError);
