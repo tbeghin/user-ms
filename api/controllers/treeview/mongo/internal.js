@@ -42,6 +42,10 @@ function update(treeview) {
  * @returns {Promise.<TResult>}
  */
 function add(treeview) {
+    treeview._id = new ObjectID(treeview._id);
+    if(treeview.parent) {
+        treeview.parent = new ObjectID(treeview.parent);
+    }
     return mongo.getDao(TreeviewDao).then(
         function (treeviewDAO) {
             return treeviewDAO.save(treeview);

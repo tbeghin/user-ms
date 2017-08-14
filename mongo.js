@@ -5,7 +5,7 @@ const MongoClient = require('mongodb').MongoClient;
 BPromise.promisifyAll(MongoClient);
 
 let db = null;
-const connexionString = 'mongodb://localhost/calligramme';
+const connexionString = 'mongodb://192.168.0.12:27017/calligramme';
 
 /**
  * Instantiate the connection to the bdd
